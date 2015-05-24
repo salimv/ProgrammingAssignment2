@@ -11,12 +11,26 @@
 ## getinverse and setinverse get and set the inverse matrix solution for the 
 ## given matrix. This is where the cached value is stored.
 
+## Example use"
+## x <- matrix(c(3,4,2,3),nrow=2,ncol=2)
+## cx <- makeCacheMatrix(x)
+## cacheSolve(cx)
+## The above will simply return the inverse
+## When you call the above call repeatedly, you will see a message 
+## "Returning cached inverse matrix" and return the inverse from cache
+## y <- matrix(c(4,5,6,7),nrow=2,ncol=2)
+## cx$set(y)
+## cacheSolve(cx)
+## The above 2 lines will set the new matrix. The first cacheSolve() will 
+## compute and return inverse. Repeated calls  will show a message 
+## "Returning cached inverse matrix" and return the inverse from cache
+
 makeCacheMatrix <- function(x = matrix()) {
   ## Initialize the inverse to NULL
   i <- NULL
   
-  ## Function to set a new matrix. When this happes, clear the inverse so that
-  ## it is computed the next time the cacheSolve is called
+  ## Function to set a new matrix. When set matrix is set, clear the inverse so   
+  ## that a new inverse iscomputed the next time cacheSolve() is called
   set <- function(y) {
     x <<- y
     i <<- NULL
